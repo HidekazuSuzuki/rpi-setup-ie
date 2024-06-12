@@ -37,6 +37,8 @@ else
 fi
 if [ -f /usr/lib/raspberrypi-sys-mods/imager_custom ]; then
    /usr/lib/raspberrypi-sys-mods/imager_custom set_wlan 'UCLab' '{PSK_VALUE}' 'JP'
+   cp /boot/firmware/nmprofiles/*.nmconnection /etc/NetworkManager/system-connections/
+   chmod 600 /etc/NetworkManager/system-connections/*.nmconnection
 else
 cat >/etc/wpa_supplicant/wpa_supplicant.conf <<'WPAEOF'
 country=JP
@@ -47,6 +49,37 @@ update_config=1
 network={
 	ssid="UCLab"
 	psk={PSK_VALUE}
+   priority=10
+}
+network={
+   ssid="innovation-hub-IoT"
+   psk={PSK_VALUE}
+   priority=0
+}
+network={
+   ssid="innovation-hub-IoT5"
+   psk={PSK_VALUE}
+   priority=10
+}
+network={
+   ssid="ComputerLab-IoT"
+   psk={PSK_VALUE}
+   priority=0
+}
+network={
+   ssid="ComputerLab-IoT5"
+   psk={PSK_VALUE}
+   priority=10
+}
+network={
+   ssid="SeminarRoom-A-IoT"
+   psk={PSK_VALUE}
+   priority=0
+}
+network={
+   ssid="SeminarRoom-A-IoT5"
+   psk={PSK_VALUE}
+   priority=10
 }
 
 WPAEOF
